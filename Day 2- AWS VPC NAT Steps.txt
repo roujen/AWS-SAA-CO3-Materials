@@ -1,0 +1,37 @@
+Day 2 – VPC + Public/Private + NAT Gateway (Simple Steps)
+
+1. Login to AWS Console
+2. Go to VPC → Create a VPC
+3. Set CIDR Block (example: 10.0.0.0/16)
+4. Create 2 subnets inside the VPC:
+   - b23_public_subnet (example: 10.0.1.0/24)
+   - b23_private_subnet (example: 10.0.2.0/24)
+5. Create an Internet Gateway (IGW)
+6. Attach IGW to your VPC
+
+Public Subnet Setup
+7. Create a Public Route Table
+8. Add route:
+   - Destination: 0.0.0.0/0
+   - Target: IGW
+9. Associate this route table with b23_public_subnet
+
+NAT Gateway Setup
+10. Go to NAT Gateways → Create NAT Gateway
+11. Select subnet: b23_public_subnet
+12. Allocate an Elastic IP and attach it
+13. Create NAT Gateway
+
+Private Subnet Setup
+14. Create a Private Route Table
+15. Add route:
+   - Destination: 0.0.0.0/0
+   - Target: NAT Gateway
+16. Associate this route table with b23_private_subnet
+--------------------------------------------------------------------------
+Finally Lunch EC2 instance for public and private subnet then from public ec2 ssh to private ec2 using csl-pem.key. Now check private ec2 is not reachable via ssh. Because of our NAT gateway
+
+Final Note
+- Public subnet = Internet access (inbound + outbound)
+- Private subnet = No direct inbound from internet
+- Private subnet uses NAT Gateway only for outbound internet (updates, downloads, etc.)

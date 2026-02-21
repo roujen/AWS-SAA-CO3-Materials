@@ -1,0 +1,23 @@
+Problem Statement: Day:1 Create a VPC and EC2 instance
+
+
+
+1. Login to AWS Console
+2. Go to VPC → Create a VPC
+3. Set CIDR Block (example: 10.0.0.0/16)
+4. Create 2 subnets inside the VPC:
+	-b23_public_subnet (example: 10.0.1.0/24)
+	-b23_private_subnet (example: 10.0.2.0/24)
+
+5. Create an Internet Gateway (IGW)
+6. Attach IGW to your VPC
+7. Create a Route Table (public route table)
+	Add route:
+	-Destination: 0.0.0.0/0
+	-Target: IGW
+
+8. Associate this route table with b23_public_subnet
+9. Launch an EC2 instance inside b23_public_subnet
+10. Make sure EC2 has a Public IPv4
+11. SSH into EC2:ssh -i "csl-key.pem" ubuntu@<public-ip>
+12. Lastly ping google.com
